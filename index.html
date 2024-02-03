@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Tide Forecast</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   </head>
+   <body>
+      <!-- header for webpage -->   
+      <header>Tide Forecast</header>
+  
+      <!-- container class in order to align the different buttons side by side -->
+      <div class="container">
+
+      </div>
+      <!-- Introduction message for understanding usage of web app-->   
+      <h1 id="introMessage">Use this tide forecast calculator to check 
+        tide levels
+      </h1>
+      <h1 id="Message2">Please don't enter past dates :&lpar;
+      </h1>
+    <form action="{{ url_for('tide_form')}}" method="POST">
+    <div class="datetime-box">
+            <label for="location">Location:</label>
+            <select id="dropdown" name="location">
+                <option value="option1">Newport, OR</option>
+                <option value="option2">Tillamook, OR</option>
+                <option value="option3">Astoria, OR</option>
+                <option value="option4">Cannon Beach, OR</option>
+            </select>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time">
+
+            <!-- Enter button-->   
+            <div>
+                <button id="enterButton">Enter</button>
+            </div>
+        </form>
+    </div>
+   </body>
+</html>
