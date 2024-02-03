@@ -1,0 +1,93 @@
+
+body {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    background-image: url('background2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+header {
+   font: "Gill Sans";
+   font-size: 35px;
+   color: black;
+   background-color: lightblue;
+   margin-bottom: 23px;
+   padding: 30px;
+}
+
+h1 {
+   font-size: 15px;
+   margin-left: 8px;
+}
+
+#introMessage{
+   color: white;
+}
+#Message2{
+   color: white;
+}
+
+.datetime-box {
+   width: 300px;
+   margin: 50px auto;
+   padding: 20px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+}
+
+.datetime-box label[for="location"]{
+   color: white;
+}
+.datetime-box label[for="date"]{
+   color: white;
+}
+.datetime-box label[for="time"]{
+   color: white;
+}
+
+label {
+   display: block;
+   margin-bottom: 10px;
+}
+
+input[type="date"],
+input[type="time"]{
+   padding: 8px;
+   width: calc(100-16px);
+   margin-bottom: 15px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus{
+   outline: none;
+   border-color: #007bff;
+   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.container {
+   display: flex;
+}
+
+
+#introMessage {
+   font-size: 15px;
+   margin-left: 8px; 
+}
+
+#EnterButton {
+   margin-top: 8px;
+   margin-bottom: 8px;
+   margin-left: 8px;
+   padding: 5px;
+   background-color: yellow;
+}
+
+#newGameButton:hover {
+   background-color: orange;
+}
