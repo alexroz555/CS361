@@ -8,6 +8,9 @@ body {
 }
 
 header {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    font: "Gill Sans";
    font-size: 35px;
    color: black;
@@ -25,10 +28,14 @@ h1 {
    color: white;
 }
 #Message2{
+   display: flex;
+   justify-content: center;
+   align-items: center;
    color: white;
 }
 
 .datetime-box {
+   background-color: lightblue;
    width: 300px;
    margin: 50px auto;
    padding: 20px;
@@ -38,18 +45,23 @@ h1 {
 }
 
 .datetime-box label[for="location"]{
-   color: white;
+   color: black;
 }
 .datetime-box label[for="date"]{
-   color: white;
+   color: black;
 }
 .datetime-box label[for="time"]{
-   color: white;
+   color: black;
 }
 
 label {
    display: block;
    margin-bottom: 10px;
+}
+
+.asterisk {
+   color: red;
+   margin-right: 2px;
 }
 
 input[type="date"],
@@ -74,8 +86,10 @@ input[type="time"]:focus{
    display: flex;
 }
 
-
 #introMessage {
+   display: flex;
+   justify-content: center;
+   align-items: center;
    font-size: 15px;
    margin-left: 8px; 
 }
