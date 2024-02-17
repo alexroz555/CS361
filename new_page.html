@@ -2,23 +2,25 @@
 <html lang="en">
    <head>
       <title>Tide Forecast</title>
-   
       <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
    </head>
    <body>
       <!-- header for webpage -->   
       <header>Tide Forecast Calculator</header>
       <div class="container">
-  
-    <h1>Results for [Month] [Day] [Year]:</h1>
-         <h2>High Tide: </h2>
-         <h2>Low Tide: </h2>
-         <h2>High Tide: </h2>
-         <h2>Low Tide:</h2>
-         <!-- Enter button-->   
-         <div>
-         <a href="{{ url_for('return_home') }}"><button id="returnButton">Return</button></a>
+         <div class="results-box">
+         <h2>Results for {{ date }} in {{ location }}:</h2>
+         {% if formatted_high %}
+            <div><h2>{{ formatted_high }}</h2></div>
+         {% else %}
+            <div><h3>No tide information available, make sure to enter an eligible date</h3></div>
+         {% endif %}
+         <div><h2>{{ formatted_low }}</h2></div>
+            <!--return button--> 
+            <div class="return-button">
+            <a href="{{ url_for('return_home') }}"><button id="returnButton">Return</button></a>
+         </div>
       </div>
-    </div>
-   </body>
+   </div>
+</body>
 </html>
