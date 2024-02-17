@@ -8,11 +8,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    # You can process data here and pass it to the template
-    name = "World"
     date = request.args.get('date')
     open_website(date)
-    return render_template('index.html', name=name)
+    return render_template('index.html')
 
 def convert_date(date_str):
     date_item = datetime.strptime(date_str, '%Y-%m-%d')
