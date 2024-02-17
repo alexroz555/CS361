@@ -28,10 +28,10 @@ h1 {
    color: white;
 }
 #Message2{
-   display: flex;
+
    justify-content: center;
    align-items: center;
-   color: white;
+   color: black;
 }
 
 .datetime-box {
@@ -80,7 +80,6 @@ input[type="time"]:focus{
    border-color: #007bff;
    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-
 
 .container {
    display: flex;
