@@ -1,10 +1,12 @@
 
 body {
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-    background-image: url('background2.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
+   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+   background-image: url('background2.jpg');
+   background-size: cover;
+   background-position: center;
+   background-repeat: repeat;
+   margin: 0;
+   padding: 0;
 
 }
 
@@ -20,39 +22,41 @@ header {
    padding: 30px;
 }
 
-h1 {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 15px;
-   margin-left: 8px;
-   color: white;
-}
 h2 {
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   text-align: left;
    font-size: 15px;
-   margin-left: 8px;
-   color: white;
+   color: black;
+}
+h3 {
+   text-align: left;
+   font-size: 14px;
+   color: red;
 }
 
 
 #returnButton {
-   display: flex;
-   justify-content: center;
-   align-items: center;
+   display: block;
+   margin: 0 auto;
    margin-top: 8px;
    margin-bottom: 8px;
    margin-left: 8px;
    padding: 5px;
-   background-color: yellow;
+   background-color: teal;
+   cursor: pointer;
 }
 
 #returnButton:hover {
-   background-color: orange;
+   background-color: darkslateblue;
 }
 
 .container {
    display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.results-box {
+   text-align: left;
+   background-color: lightblue;
+   padding: 20px;
 }
