@@ -12,30 +12,34 @@
       <div class="container">
 
       </div>
+      <div>
       <!-- Introduction message for understanding usage of web app-->   
       <h1 id="introMessage">Use this tide forecast calculator to check 
-        tide levels
-      </h1>
-      <h1 id="Message2">Please don't enter past dates
-      </h1>
+        tide levels for a certain date and time</h1>
+        </div>
     <form action="{{ url_for('tide_form')}}" method="POST">
     <div class="datetime-box">
             <label for="location"><span class="asterisk">*</span>Location:</label>
             <select id="dropdown" name="location">
-                <option value="option1">Newport, OR</option>
-                <option value="option2">Tillamook, OR</option>
-                <option value="option3">Astoria, OR</option>
-                <option value="option4">Cannon Beach, OR</option>
+                <option value="Newport">Newport, OR</option>
+                <!--<option value="option2">Tillamook, OR</option> --> 
+                <!--<option value="option3">Astoria, OR</option> --> 
+                <!--<option value="option4">Cannon Beach, OR</option> -->
             </select>
             <label for="date"><span class="asterisk">*</span>Date:</label>
             <input type="date" id="date" name="date">
-            <label for="time"><span class="asterisk">*</span>Time:</label>
-            <input type="time" id="time" name="time">
+            <!-- <label for="time"><span class="asterisk">*</span>Time:</label>
+            <input type="time" id="time" name="time"> -->
 
             <!-- Enter button-->   
             <div>
                 <button id="enterButton">Enter</button>
             </div>
+          </h1>
+          <!-- <h1 id="Message2"><span class="asterisk">*</span><span class="asterisk">*</span>
+            Please don't enter past dates
+          </h1> -->
+ 
         </form>
     </div>
    </body>
