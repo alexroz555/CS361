@@ -3,112 +3,117 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import requests
 import re
+from datetime import datetime
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     # You can process data here and pass it to the template
     name = "World"
-    open_website()
+    date = request.args.get('date')
+    open_website(date)
     return render_template('index.html', name=name)
+
+def convert_date(date_str):
+    date_item = datetime.strptime(date_str, '%Y-%m-%d')
+    formatted_date = date_item.strftime('%d %B %Y')
+    return formatted_date 
+
 
 @app.route('/tide_form', methods=['POST'])
 def tide_form():
     #process form data
-    print(request.form)
     location = request.form['location']
     date = request.form['date']
-    time = request.form['time']
+    formatted_date = convert_date(date)
+    #time = request.form['time']
+    formatted_high, formatted_low = open_website(formatted_date)
 
-    return redirect(url_for('new_page'))
+    return redirect(url_for('new_page', location=location, date=formatted_date, formatted_high=formatted_high, formatted_low=formatted_low))
 
 @app.route('/new_page')
 def new_page():
-    return render_template('new_page.html')
+    location = request.args.get('location')
+    date = request.args.get('date')
+    formatted_high = request.args.get('formatted_high')
+    formatted_low = request.args.get('formatted_low')
+    return render_template('new_page.html', location=location, date=date, formatted_high=formatted_high, formatted_low=formatted_low)
 
 @app.route("/return_home", methods=['GET'])
 def return_home():
     return redirect(url_for('index'))
 
-def open_website():
-    try:
-        url = "https://www.tide-forecast.com/locations/Newport-Yaquina-River-Oregon/tides/latest"
-        page = urlopen(url)
-        html_bytes = page.read()
-        html = html_bytes.decode("utf-8")
-        #print(html)
-        soup = BeautifulSoup(html, "html.parser")
+def open_website(date):
+    high_data = {}
+    low_data = {}
 
-        text = soup.get_text()
-        formatted_text = BeautifulSoup(text, "html.parser").prettify()
-        with open("output.txt","w") as file:
-            file.write(formatted_text)
-        
+    formatted_high = ""
+    formatted_low = ""
 
-        with open("output.txt", "r") as file:
-            print_flag = False
-            lines = file.read()
-            target = "Wednesday 21 February 2024"
-            start_index = lines.find(target)
-            if start_index != -1:
-                next_index = lines.find("Tide Times", start_index + 1)
-                if next_index != -1:
-                    tide_times = lines[start_index:next_index]
-                else:
-                    tide_times = lines[start_index:]
-                with open("text.txt","w") as file:
-                    file.write(tide_times)
+
+    url = "https://www.tide-forecast.com/locations/Newport-Yaquina-River-Oregon/tides/latest"
+    page = urlopen(url)
+    html_bytes = page.read()
+    html = html_bytes.decode("utf-8")
+    
+    soup = BeautifulSoup(html, "html.parser")
+
+    text = soup.get_text()
+    formatted_text = BeautifulSoup(text, "html.parser").prettify()
+    with open("output.txt","w") as file:
+        file.write(formatted_text)
+    
+    with open("output.txt", "r") as file:
+        print_flag = False
+        lines = file.read()
+        target = date
+        start_index = lines.find(target)
+        if start_index != -1:
+            next_index = lines.find("Tide Times", start_index + 1)
+            if next_index != -1:
+                tide_times = lines[start_index:next_index]
             else:
-                ("No information found for this date")
+                tide_times = lines[start_index:]
+            with open("text.txt","w") as file:
+                file.write(tide_times)
 
-        with open('text.txt', "r") as file:
-            low_tides = []
-            high_tides = []
-            tokens = text.split()
-            for i in range(len(tokens)):
-                if tokens[i] == 'Low' and tokens[i + 1] == "Tide":
-                    low_tides.append((tokens[i + 1]))
-                elif tokens[i] == 'High' and tokens[i + 1] == 'Tide':
-                    high_tides.append((tokens[i + 2], tokens[i + 4]))
-            print("Low Tides:")
-            for tide in low_tides:
-                print(tide)
-            print("\nHigh Tides:")
-            for tide in high_tides:
-                print(tide)
-            # for line in file:
-            #     if "Tide Times for Newport, Yaquina River:" in line:
-            #         if "Wednesday 21 February 2024" in line:
-            #             print_flag = True
-            #     elif print_flag and "Thursday 22 February 2024" in line:
-            #         break
-            #     if print_flag:
-            #         print(line)
-        
-        # month = soup.find_all(string=re.compile(r'11 February'))
+    with open("text.txt", "r") as file:
+        data = file.read()
 
-        # tide_spans = soup.find_all('span', class_="tide-day-tides__secondary")
-        # #print(tide_spans)
+    #for some idiot reason the low tide data have a space in between it but the high tide data sometimes does and sometimes doesn't
+    #put optional space after first two words
+    low_info = re.findall(r'(Low) Tide\s?(\d+:\d+ [AP]M)\(\w+ \d+ \w+\)(-?\d+\.\d+ ft)', data)
+    high_info = re.findall(r'(High) Tide\s?(\d+:\d+ [AP]M)\(\w+ \d+ \w+\)(-?\d+\.\d+ ft)', data)    
 
-        
-        # for i in range(0, len(tide_spans)):
+    for tide in high_info:
+        tide_type, tide_time, tide_height = tide
+        if tide_type not in high_data:
+            high_data[tide_type] = []
+        high_data[tide_type].append((tide_time, tide_height))
 
-        #     date_span = tide_spans[i]
-        #     if date_span.get_text() == "(Sun 11 February)":
-     
-     
-        #         low_tide_level = tide_spans[i + 1]
-        #         low_tide_time = low_tide_level.get_text()
-        #         print(f"Low Tide Level: {low_tide_time}")
+    for tide in low_info:
+        tide_type, tide_time, tide_height = tide
+        if tide_type not in low_data:
+            low_data[tide_type] = []
+        low_data[tide_type].append((tide_time, tide_height))
 
-        #         high_tide_level = tide_spans[i + 1]
-        #         high_tide_time = high_tide_level.get_text()
-        #         print(f"High Tide Level: {high_tide_time}")
+    for tide_type, tide_data in high_data.items():
+        formatted_high += f"{tide_type} Tide: "
+        for i, (time, height) in enumerate(tide_data):
+            formatted_high += f"{time}, {height}"
+            if i < len(tide_data) - 1:
+                formatted_high += "; "
+        formatted_high += "; "
 
-                
+    for tide_type, tide_data in low_data.items():
+        formatted_low += f"{tide_type} Tide: "
+        for i, (time, height) in enumerate(tide_data):
+            formatted_low += f"{time}, {height}"
+            if i < len(tide_data) - 1:
+                formatted_low += "; "
+        formatted_low += "; "
 
-    except Exception as e:
-        print("Error occurred while fetching website:", e)
+    return formatted_high, formatted_low
 
 if __name__ == '__main__':
     app.run(debug=True)
