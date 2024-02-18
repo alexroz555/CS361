@@ -10,12 +10,11 @@
   
       <!-- container class in order to align the different buttons side by side -->
       <div class="container">
-
       </div>
       <div>
       <!-- introduction message for understanding usage of web app-->   
       <h1 id="introMessage">Use this tide forecast calculator to check 
-        tide levels for a certain date and time</h1>
+        tide levels for a certain date</h1>
         </div>
     <form action="{{ url_for('tide_form')}}" method="POST">
     <div class="datetime-box">
@@ -30,16 +29,14 @@
             <input type="date" id="date" name="date">
             <!-- <label for="time"><span class="asterisk">*</span>Time:</label>
             <input type="time" id="time" name="time"> -->
-
             <!-- enter button-->   
             <div>
                 <button id="enterButton">Enter</button>
             </div>
           </h1>
-          <!-- <h1 id="Message2"><span class="asterisk">*</span><span class="asterisk">*</span>
-            Please don't enter past dates
-          </h1> -->
- 
+          <h1 id="Message2"><span class="asterisk">*</span><span class="asterisk">*</span>
+            Data may not be available for dates more than a month in advance
+          </h1>
         </form>
     </div>
    </body>
