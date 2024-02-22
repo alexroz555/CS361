@@ -1,7 +1,7 @@
 
 body {
    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-   background-image: url('background2.jpg');
+   background-image: url('background3.jpg');
    background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
@@ -27,6 +27,7 @@ h1 {
 #introMessage{
    color: white;
 }
+
 #Message2{
    justify-content: center;
    align-items: center;
@@ -38,17 +39,19 @@ h1 {
    width: 300px;
    margin: 50px auto;
    padding: 20px;
-   border: 1px solid #ccc;
+   border: 1px solid white;
    border-radius: 5px;
-   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+   box-shadow: 0 0 10px black
 }
 
 .datetime-box label[for="location"]{
    color: black;
 }
+
 .datetime-box label[for="date"]{
    color: black;
 }
+
 .datetime-box label[for="time"]{
    color: black;
 }
@@ -68,7 +71,7 @@ input[type="time"]{
    padding: 8px;
    width: calc(100-16px);
    margin-bottom: 15px;
-   border: 1px solid #ccc;
+   border: 1px solid white;
    border-radius: 4px;
    font-size: 16px;
 }
@@ -76,8 +79,8 @@ input[type="time"]{
 input[type="date"]:focus,
 input[type="time"]:focus{
    outline: none;
-   border-color: #007bff;
-   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+   border-color: blue;
+   box-shadow: 0 0 5px blue;
 }
 
 .container {
