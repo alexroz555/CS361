@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -9,7 +10,6 @@ website_fetched = False
 @app.route('/')
 def index():
     date = request.args.get('date')
-    #open_website(date)
     return render_template('index.html')
 
 def convert_date(date_str):
@@ -27,9 +27,6 @@ def tide_form():
         return render_template('index.html')
     else:
         formatted_date = convert_date(date)
-        #time = request.form['time']
-        #formatted_high, formatted_low = open_website(formatted_date)
-        #return redirect(url_for('new_page'))
         return redirect(url_for('new_page', location=location, date=formatted_date))
 
 @app.route('/new_page')
@@ -104,20 +101,16 @@ def process_data(date):
         low_data[tide_type].append((tide_time, tide_height))
 
     for tide_type, tide_data in high_data.items():
-        #formatted_high += f"{tide_type} Tide: "
         for i, (time, height) in enumerate(tide_data):
-            formatted_high += f"{time}, {height}"
+            formatted_high += f"{time} at {height}"
             if i < len(tide_data) - 1:
-                formatted_high += "; "
-        formatted_high += "; "
+                formatted_high += " and "
 
     for tide_type, tide_data in low_data.items():
-        #formatted_low += f"{tide_type} Tide: "
         for i, (time, height) in enumerate(tide_data):
-            formatted_low += f"{time}, {height}"
+            formatted_low += f"{time} at {height}"
             if i < len(tide_data) - 1:
-                formatted_low += "; "
-        formatted_low += "; "
+                formatted_low += " and "
 
     return formatted_high, formatted_low
 
